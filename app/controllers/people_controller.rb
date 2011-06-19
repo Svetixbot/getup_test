@@ -8,16 +8,31 @@ class PeopleController < ApplicationController
     end
   end
   
-  def filter
-    @people = Person.scoped
-    @people = @people.where("email like :include_email", :include_email => "%@" + params[:include_email] + "%") if !params[:include_email].blank?
-    @people = @people.where("email not like :exclude_email", :exclude_email => "%@" + params[:exclude_email] + "%") if !params[:exclude_email].blank?    
-    @people = @people.joins(:postcode).where("postcodes.number in (:include_postcodes)", :include_postcodes => params[:include_postcodes].to_s.split(',')) if !params[:include_postcodes].blank?    
-    @people = @people.joins(:postcode).where("postcodes.number not in (:exclude_postcodes)", :exclude_postcodes => params[:exclude_postcodes].to_s.split(',')) if !params[:exclude_postcodes].blank?    
+  def filter    
+    #Remeber inputed paramters
+    @include_postcodes = params[:include_postcodes] 
+    @exclude_postcodes = params[:exclude_postcodes]
     @include_email = params[:include_email]
     @exclude_email = params[:exclude_email]
-    @include_postcodes = params[:include_postcodes]
-    @exclude_postcodes = params[:exclude_postcodes]
+   
+    #Creating rules for each filtering parameter for validation
+    rules = [Postcodes_rule.new(@include_postcodes, :include_postcodes),
+    Postcodes_rule.new(@exclude_postcodes, :exclude_postcodes),
+    Email_rule.new(@include_email, :include_email),
+    Email_rule.new(@exclude_email, :exclude_email)]
+    
+    rules.each do |r|
+      if !r.valid?
+          @error = r.errors
+      end
+    end
+    
+    if @error.blank?
+      @people = Person.filter_by_params(params)
+    else 
+      @people = Person.all
+    end
+    
     render "show"
   end
   

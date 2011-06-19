@@ -1,5 +1,19 @@
 <h1>Filtering people</h1>
 
+<%if !@error.blank?%>
+<% if @error.any? %>  
+  <div id="errorExplanation">  
+    <h2><%= pluralize(@error.count, "error") %> prohibited this user from being filtered:</h2>  
+    <ul>  
+    <% @error.full_messages.each do |msg| %>  
+      <li><%= msg %></li>  
+    <% end %>  
+    </ul>  
+  </div>  
+<% end %>
+<% end %>
+
+
 	<%= form_tag(:controller => "people", :action => "filter") do %>
 		
 		<div style="float:left">
@@ -37,12 +51,14 @@
   <tr>
     <th width="200" align="left">Name</th>
 	<th align="left">EMail</th>
+	<th align="left">Postcode</th>
   </tr>
 
 	<% @people.each do |person| %>
   		<tr>
     		<td width="200" align="left"><%= person.name %></td>
     		<td align="left"><%= person.email %></td>
+    		<td align="left"><%= person.postcode.number %></td>
   		</tr>
 	<% end %>
 

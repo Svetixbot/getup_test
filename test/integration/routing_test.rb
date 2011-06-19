@@ -14,7 +14,7 @@ class UserFlowsTest < ActionController::IntegrationTest
     post_via_redirect "/people/filter", :include_postcodes=>"2000"
     assert_response :success
     assert_not_nil assigns(:people)
-    assert_equal 'people/filter', path
+    assert_equal '/people/filter', path
   end
   
   test "path after submit clear should be people/show" do  
