@@ -1,26 +1,49 @@
-<h1>Listing people</h1>
+<h1>Filtering people</h1>
 
-<table>
-	
-	<form action="/people/filter" method="post">
-	   <input id="search_string" name="search_string" type=" text" value="<%= @search_string%>"/>
-	   <input name="commit" type="submit" value="Search" />
-	</form>
-	
-	<%= form_tag(:controller => "people", :action => "clear", :method => "post") do %>
-		<%= submit_tag("Clear") %>
+	<%= form_tag(:controller => "people", :action => "filter") do %>
+		
+		<div style="float:left">
+			<h2>Email</h2>
+			<%= label_tag(:include_email, "Include") %>
+	  		<%= text_field_tag(:include_email, @include_email) %>
+			<%= label_tag(:exclude_email, "Exclude") %>
+	  		<%= text_field_tag(:exclude_email, @exclude_email) %>
+		</div>
+		
+		<div style="float:left">
+			<h2>Postcodes</h2>
+			<%= label_tag(:include_postcodes, "Include postcodes") %>
+	  		<%= text_field_tag(:include_postcodes, @include_postcodes) %>
+			<%= label_tag(:exclude_postcodes, "Exclude postcodes") %>
+	  		<%= text_field_tag(:exclude_postcodes, @exclude_postcodes) %>
+		</div>
+		
+		<div style="clear:both"/>
+		<%= submit_tag("Filter") %>
 	<% end %>
+	
+	<div style="float:left">
+		<%= form_tag(:controller => "people", :action => "clear", :method => "post") do %>
+			<%= submit_tag("Clear") %>
+		<% end %>
+	</div>
+	
+<br/>
+<br/>
+<br/>
+
+<table border="1">
 	
   <tr>
     <th width="200" align="left">Name</th>
 	<th align="left">EMail</th>
   </tr>
 
-<% @people.each do |person| %>
-  <tr>
-    <td width="200" align="left"><%= person.name %></td>
-    <td align="left"><%= person.email %></td>
-  </tr>
-<% end %>
+	<% @people.each do |person| %>
+  		<tr>
+    		<td width="200" align="left"><%= person.name %></td>
+    		<td align="left"><%= person.email %></td>
+  		</tr>
+	<% end %>
 
 </table>
