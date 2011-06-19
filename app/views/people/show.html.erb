@@ -1,12 +1,17 @@
-<html>
-	<head>
-		<title>GetUp AU test</title>
-	</head>
-	<body>
-		<p>
-			<%for person in @people%>
-				<b>Name:</b><% person.name%>
-			<%end%>
-		</p>
-	</body>
-</html>
+<h1>Listing people</h1>
+
+<table>
+	
+  <tr>
+    <th width="200" align="left">Name</th>
+	<th align="left">EMail</th>
+  </tr>
+
+<% @people.each do |person| %>
+  <tr>
+    <td width="200" align="left"><%= person.name %></td>
+    <td align="left"><%= person.email %></td>
+  </tr>
+<% end %>
+
+</table>
