@@ -30,7 +30,7 @@ class PeopleControllerTest < ActionController::TestCase
   end
   
   test "should get people with postcode and email domain" do
-    post(:filter , {'include_postcodes' => '2010', 'include_email' => 'gmail'})
+    post(:filter , {'include_postcodes' => 2010, 'include_email' => 'gmail'})
     assert_equal(1, assigns[:people].count)
   end  
   
