@@ -2,6 +2,15 @@
 
 <table>
 	
+	<form action="/people/filter" method="post">
+	   <input id="search_string" name="search_string" type=" text" value="<%= @search_string%>"/>
+	   <input name="commit" type="submit" value="Search" />
+	</form>
+	
+	<%= form_tag(:controller => "people", :action => "clear", :method => "post") do %>
+		<%= submit_tag("Clear") %>
+	<% end %>
+	
   <tr>
     <th width="200" align="left">Name</th>
 	<th align="left">EMail</th>

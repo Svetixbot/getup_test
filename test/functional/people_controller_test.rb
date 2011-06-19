@@ -12,6 +12,12 @@ class PeopleControllerTest < ActionController::TestCase
     assert_not_nil assigns(:people)
   end
 
+  test "should post show" do
+    post :show
+    assert_response :success
+    assert_not_nil assigns(:people)
+  end
+  
 # Acceptance tests from GetUp task (look at README) 
 
   test "should get people with postcodes" do

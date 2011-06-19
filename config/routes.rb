@@ -3,9 +3,12 @@ GetupTest::Application.routes.draw do
   # first created -> highest priority.
 
   # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
+  
+  get 'people/show' => 'people#show'
+  post 'people/filter' => 'people#filter'
+  post 'people/clear' => 'people#clear'
+  
   # Keep in mind you can assign values other than :controller and :action
-match 'people' => 'people#show'
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
@@ -14,16 +17,16 @@ match 'people' => 'people#show'
   #   resources :products
 
   # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
+  #resources :people do
+   #     member do
+    #     get 'show'
+     #    post 'filter'
+      # end
   #
   #     collection do
   #       get 'sold'
   #     end
-  #   end
+  #end
 
   # Sample resource route with sub-resources:
   #   resources :products do
@@ -49,6 +52,7 @@ match 'people' => 'people#show'
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => "people#show"
+  #root :to => "people#filter", :via => :post
 
   # See how all your routes lay out with "rake routes"
 

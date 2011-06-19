@@ -6,4 +6,14 @@ class PeopleController < ApplicationController
       format.xml  { render :xml => @people }
     end
   end
+  
+  def filter
+    @people = Person.all(:conditions => ["email like (?)", '%@'+params[:include_email]+'%'])
+    @search_string = params[:search_string]
+    render "show"
+  end
+  
+  def clear
+    redirect_to :action => :show
+  end
 end
