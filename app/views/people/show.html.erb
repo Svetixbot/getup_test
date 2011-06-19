@@ -4,7 +4,9 @@
 	</head>
 	<body>
 		<p>
-			<b>Name: </b>
+			<%for person in @people%>
+				<b>Name:</b><% person.name%>
+			<%end%>
 		</p>
 	</body>
 </html>
