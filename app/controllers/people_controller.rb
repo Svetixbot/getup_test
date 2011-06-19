@@ -8,8 +8,8 @@ class PeopleController < ApplicationController
   end
   
   def filter
-    @people = Person.all(:conditions => ["email like (?)", '%@'+params[:include_email]+'%'])
-    @search_string = params[:search_string]
+    @people = Person.all(:conditions => ["email like (?) and ", '%@'+params[:include_email]+'%'])
+    @include_email = params[:include_email]
     render "show"
   end
   
