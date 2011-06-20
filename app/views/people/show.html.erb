@@ -1,15 +1,8 @@
 <h1>Filtering people</h1>
 
-<%if !@error.blank?%>
-<% if @error.any? %>  
-  <div id="errorExplanation">  
-    <h2><%= pluralize(@error.count, "error") %> prohibited this user from being filtered:</h2>  
-    <ul>  
-    <% @error.full_messages.each do |msg| %>  
-      <li><%= msg %></li>  
-    <% end %>  
-    </ul>  
-  </div>  
+<%if !@errors.blank?%>
+<% @errors.keys.each do |key| %>
+	<h3><font color="#CC0000"><%= @errors[key]%></font></h3>
 <% end %>
 <% end %>
 
@@ -17,7 +10,7 @@
 	<%= form_tag(:controller => "people", :action => "filter") do %>
 		
 		<div style="float:left">
-			<h2>Email</h2>
+			<h2>Email domain</h2>
 			<%= label_tag(:include_email, "Include") %>
 	  		<%= text_field_tag(:include_email, @include_email) %>
 			<%= label_tag(:exclude_email, "Exclude") %>
@@ -25,7 +18,7 @@
 		</div>
 		
 		<div style="float:left">
-			<h2>Postcodes</h2>
+			<h2> Postcodes<i> (Postcodes should be numbers separated by commas)</i></h2>	
 			<%= label_tag(:include_postcodes, "Include postcodes") %>
 	  		<%= text_field_tag(:include_postcodes, @include_postcodes) %>
 			<%= label_tag(:exclude_postcodes, "Exclude postcodes") %>

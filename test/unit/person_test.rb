@@ -4,22 +4,22 @@ class PersonTest < ActiveSupport::TestCase
   fixtures :people
 
   test "filter by postcode and email" do
-    rules = [Include_postcodes_rule.new("2000", :include_postcodes),
-    Include_email_rule.new("hotmail", :include_email)]
+    rule_set = Rule_set.new([Include_postcodes_rule.new("2000", :include_postcodes),
+    Include_email_rule.new("hotmail", :include_email)])
     
-    people = Person.filter_by_params(rules)
+    people = Person.filter_by_params(rule_set)
     
     assert_equal(1, people.size)
     assert_equal('Cody Kinnaman', people.first.name)
   end
   
   test "filter by all parameters" do
-    rules = [Include_postcodes_rule.new("2000", :include_postcodes),
+    rule_set = Rule_set.new([Include_postcodes_rule.new("2000", :include_postcodes),
     Exclude_postcodes_rule.new("2065", :exclude_postcodes),
     Include_email_rule.new("gmail", :include_email),
-    Exclude_email_rule.new("hotmail", :exclude_email)]
+    Exclude_email_rule.new("hotmail", :exclude_email)])
     
-    people = Person.filter_by_params(rules)
+    people = Person.filter_by_params(rule_set)
 
     assert_equal(1, people.size)
     assert_equal('Erik Pendergast', people.first.name)
