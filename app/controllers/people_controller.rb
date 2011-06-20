@@ -16,10 +16,10 @@ class PeopleController < ApplicationController
     @exclude_email = params[:exclude_email]
    
     #Creating rules for each filtering parameter for validation
-    rules = [Postcodes_rule.new(@include_postcodes, :include_postcodes),
-    Postcodes_rule.new(@exclude_postcodes, :exclude_postcodes),
-    Email_rule.new(@include_email, :include_email),
-    Email_rule.new(@exclude_email, :exclude_email)]
+    rules = [Include_postcodes_rule.new(@include_postcodes, :include_postcodes),
+    Exclude_postcodes_rule.new(@exclude_postcodes, :exclude_postcodes),
+    Include_email_rule.new(@include_email, :include_email),
+    Exclude_email_rule.new(@exclude_email, :exclude_email)]
     
     rules.each do |r|
       if !r.valid?
@@ -28,7 +28,7 @@ class PeopleController < ApplicationController
     end
     
     if @error.blank?
-      @people = Person.filter_by_params(params)
+      @people = Person.filter_by_params(rules)
     else 
       @people = Person.all
     end

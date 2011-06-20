@@ -1,2 +1,2 @@
-class Email_rule < Rule   
+class Email_rule < Rule 
 end
